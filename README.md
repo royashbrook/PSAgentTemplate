@@ -1,7 +1,17 @@
 # PSAgentTemplate
+
 PSAgentTemplate is a project template for PowerShell Agents/Scheduled Jobs. While a scheduled job or agent could perform any task, the one I find myself repeating the most is some variation on a 2 step process of 'get data, use data'. This is a base template for that flow.
 
+The output of this template will eventually be a deployed scheduled task on a windows server that calls powershell to invoke job.ps1. For the purpose of this template the word 'agent', 'job', 'scheduled job' and other similar items may all be used to describe the same thing. A future todo will be to standardize that language. =)
+
 # Files
+
+There are two main types of files in this template; Files that get deployed and files that do not get deployed.
+
+There are several types of files in this project template.
+
+1. The actual files that are part of the agent 
+
 - .gitignore
 - README.md - this readme file, but modified with current descriptions.
 - job.ps1 - main file. this is the file that is called by the scheduled job.
@@ -41,6 +51,6 @@ usually this is just copy/pasted from a customers email signature
 - Deploy job
   - Confirm settings in:
     - settings.json
-  - Run `iex (irm deployscripturl)`
+  - Run `.\deploy.ps1`
   
 _Note: To update, re-run `iex command`_

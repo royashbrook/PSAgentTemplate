@@ -1,8 +1,10 @@
 {
     "job": {
-        "name": "YourJobNameHere",
+        "name": "Put job name here, will be the destination folder and job name",
         "files": "get-data.sql,job.ps1,README.md,settings.json,spec.msg",
-        "schedule": "daily-7pm"
+        "schedule": "Schedule Name - see deploy.ps1",
+        "server": "Server name to copy to",
+        "teams": "URI of teams channel webhook - see deploy.ps1"
     },
     "keepdays": 10,
     "purgefiles": "*.log,*.xlsx",
