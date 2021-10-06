@@ -3,7 +3,7 @@ PSAgentTemplate is a project template for PowerShell Agents/Scheduled Jobs. Whil
 
 The output of this template will eventually be a deployed scheduled task on a windows server that calls powershell to invoke job.ps1. For the purpose of this template the word 'agent', 'job', 'scheduled job' and other similar items may all be used to describe the same thing. A future todo may be to standardize that language. =)
 
-Currently some variation of this pattern is used for ~100 jobs and maintained by just myself. If you are looking for something that 'just works', you don't want to write your own job structure, and you don't want to be locked into anything other than the basic shell, you can fork this as that is how I use it as well.
+Currently some variation of this pattern is used for ~100 jobs and maintained by just myself. If you are looking for something that 'just works', you don't want to write your own job structure, and you don't want to be locked into anything other than the basic shell, you can use this repo as a template like i do or fork it.
 # Files
 Files are either files that get deployed, or files that do not get deployed.
 
