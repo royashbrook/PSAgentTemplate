@@ -1,0 +1,8 @@
+*
+!.gitignore
+!settings.json
+!readme.md
+!spec.msg
+!*.ps1
+!*.psm1
+!*.sql
