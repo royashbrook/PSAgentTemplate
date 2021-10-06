@@ -20,6 +20,13 @@ Files are either files that get deployed, or files that do not get deployed.
 
 ## Additional files not currently listed
 - custom powershell modules - if any rich custom logic is required that will not bein job.ps1, including a custom powershell module is relatively common and job.ps1 would import it like: `Import-Module .\custom.psm1 -Force`. the file could be named whatever. sometimes there may be a need to overwrite an existing installed module, and custom versions would be imported this way as well and included.
+  - while not included in this project template, most agents make common use of the following public modules:
+    - Add-PrefixForLogging
+    - Clear-Files
+    - Send-FileViaEmail
+    - WinSCP
+    - ImportExcel
+    - SqlServer
 - custom required files - sometimes a template file may be populated or perhaps a key file will need to be included with a file in some way. there are many examples but the most common currently are excel templates that are opened and then populated prior to sending to some destination or certificite files required by various jobs.
 - additional documentation - in very rare instances, there is a need to have some document readily available to open like a pdf or mapping file. in those cases, the file will be copied separately. typically, these files are simply included in the spec.msg file if needed.
 
