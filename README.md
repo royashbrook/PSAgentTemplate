@@ -74,6 +74,6 @@ usually this is just copy/pasted from a customers email signature
 
 - Clone locally
 - Confirm settings.json
-- `.\deploy.ps1`
+- `iex (irm https://raw.githubusercontent.com/royashbrook/PSAgentDeploy/main/deploy.ps1)`
   
 _Note: To update, re-run `iex command`_
