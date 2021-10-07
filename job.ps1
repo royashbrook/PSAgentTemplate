@@ -22,49 +22,22 @@ function main {
     l "Start"
     l "Get Data"
 
-    # output to log only
-    # Invoke-Sqlcmd -QueryTimeout 1800 -ConnectionString $cfg.cs -InputFile $cfg.sql |
-    #     Select-Object * -ExcludeProperty RowError,RowState,Table,ItemArray,HasErrors |
-    #     Format-Table -Property * -AutoSize |
-    #     Out-String -Width 4096
+    $sqlargs = $cfg.sql.psobject.Properties|%{$h=@{}}{$h."$($_.Name)"=$_.Value}{$h}
+    $dt = Invoke-Sqlcmd @sqlargs
+    if (($dt | Measure-Object).count -gt 0){
 
-    $dt = Invoke-Sqlcmd -QueryTimeout 1800 -ConnectionString $cfg.cs -InputFile $cfg.sql -OutputAs DataTables
-    if (($dt | Measure-Object).count -gt 0) {
-
-        # csv
         $dt |
-        Select-Object $dt.Columns.ColumnName |
-        Export-Csv $file -NoTypeInformation
-
-        # unquoted csv
-        # ConvertTo-Csv -NoTypeInformation |
-        # # if no header row allowed
-        # # Select-Object -Skip 1 |
-        # ForEach-Object{ "$($_ -replace '"', '')" } |
-        # Set-Content $file
-
-        # excel
-        # # Import-Module ImportExcel
-        # Export-Excel $file -TableStyle Medium6 -AutoSize -NoNumberConversion *
-
+            Select-Object $dt.Columns.ColumnName |
+            Export-Csv $file -NoTypeInformation
+            
         l "Use Data"
-
-        # send file vial email using msgraph
         Send-FileViaEmail $file $cfg -useGraph
-
-        #send file using ftp
-        # Import-Module WinSCP
-        # $securepass = ConvertTo-SecureString $cfg.ftp.pass -AsPlainText -Force
-        # $credential = New-Object pscredential ($cfg.ftp.user, $securepass)
-        # $sessionOption = New-WinSCPSessionOption -HostName $cfg.ftp.host -Credential $credential -Protocol Ftp -FtpSecure Explicit
-        # New-WinSCPSession -SessionOption $sessionOption
-        # Send-WinSCPItem $file
-        # Remove-WinSCPSession
 
     }
     else {
-        "No data available"
+        l "No data available"
     }
+
     l "Cleanup"    ; Clear-Files $cfg
     l "End"
     "`n`n"
@@ -73,3 +46,31 @@ function main {
 
 #run main, output to screen and log
 & { main } *>&1 | Tee-Object -Append ("{0:yyyyMMdd}.log" -f (get-date))
+
+## other examples for output
+
+# output to log only
+# Invoke-Sqlcmd -QueryTimeout 1800 -ConnectionString $cfg.cs -InputFile $cfg.sql |
+#     Select-Object * -ExcludeProperty RowError,RowState,Table,ItemArray,HasErrors |
+#     Format-Table -Property * -AutoSize |
+#     Out-String -Width 4096
+
+# unquoted csv
+# ConvertTo-Csv -NoTypeInformation |
+# # if no header row allowed
+# # Select-Object -Skip 1 |
+# ForEach-Object{ "$($_ -replace '"', '')" } |
+# Set-Content $file
+
+# excel
+# # Import-Module ImportExcel
+# Export-Excel $file -TableStyle Medium6 -AutoSize -NoNumberConversion *
+
+#send file using ftp
+# Import-Module WinSCP
+# $securepass = ConvertTo-SecureString $cfg.ftp.pass -AsPlainText -Force
+# $credential = New-Object pscredential ($cfg.ftp.user, $securepass)
+# $sessionOption = New-WinSCPSessionOption -HostName $cfg.ftp.host -Credential $credential -Protocol Ftp -FtpSecure Explicit
+# New-WinSCPSession -SessionOption $sessionOption
+# Send-WinSCPItem $file
+# Remove-WinSCPSession

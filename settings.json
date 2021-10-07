@@ -9,8 +9,12 @@
     "keepdays": 10,
     "purgefiles": "*.log,*.xlsx",
     "file_format": "{0:yyyyMMddHHmmss}-FileToSend.xlsx",
-    "cs": "YourConnectionString",
-    "sql": "get-data.sql",
+    "sql": {
+        "QueryTimeout": 1800,
+        "ConnectionString": "YourConnectionString",
+        "InputFile": "get-data.sql",
+        "OutputAs": "DataTables"
+    },
     "mail": {
         "from": "YourEmailThatCanUseGraph@yourdomain.com",
         "to": [
