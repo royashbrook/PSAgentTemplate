@@ -22,13 +22,13 @@ function main {
     l "Start"
     l "Get Data"
 
-    $sqlargs = $cfg.sql.psobject.Properties|%{$h=@{}}{$h."$($_.Name)"=$_.Value}{$h}
+    $sqlargs = $cfg.sql.psobject.Properties | % { $h = @{} } { $h."$($_.Name)" = $_.Value } { $h }
     $dt = Invoke-Sqlcmd @sqlargs
-    if (($dt | Measure-Object).count -gt 0){
+    if (($dt | Measure-Object).count -gt 0) {
 
         $dt |
-            Select-Object $dt.Columns.ColumnName |
-            Export-Csv $file -NoTypeInformation
+        Select-Object $dt.Columns.ColumnName |
+        Export-Csv $file -NoTypeInformation
             
         l "Use Data"
         Send-FileViaEmail $file $cfg -useGraph
