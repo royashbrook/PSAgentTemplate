@@ -74,3 +74,15 @@ function main {
 # New-WinSCPSession -SessionOption $sessionOption
 # Send-WinSCPItem $file
 # Remove-WinSCPSession
+
+# sanatize the data after the fact, but before outputting to some formatter
+# note: i have only used this in specific instances, so this may not work properly for a random item
+#   i'll update it for a generic next time i actually use it.
+#   in this example, we're looking to just replace any non alphanumeric char with a space,
+#   then replace all multi spaces with a single space and trim it
+#$somerecords = $dt | Select-Object $dt.Columns.ColumnName
+#$dt = foreach($i in (0..($somerecords.count-1)) ){
+#        foreach($ii in $somerecords[$i].psobject.properties){
+#            $ii.value = (($ii.value -replace "[^A-Za-z0-9]"," ") -replace "\s+"," ").Trim()
+#        }
+#    }
