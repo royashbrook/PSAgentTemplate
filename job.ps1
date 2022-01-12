@@ -23,6 +23,8 @@ function main {
     l "Get Data"
 
     $sqlargs = $cfg.sql.psobject.Properties | % { $h = @{} } { $h."$($_.Name)" = $_.Value } { $h }
+    # if using pwsh, can use below instead
+    #$sqlargs = $cfg.sql | ConvertTo-Json | ConvertFrom-Json -AsHashtable
     $dt = Invoke-Sqlcmd @sqlargs
     if (($dt | Measure-Object).count -gt 0) {
 
