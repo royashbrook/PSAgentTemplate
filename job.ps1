@@ -1,6 +1,10 @@
 #strict
 Set-StrictMode -Version Latest
 
+#remove ansi color coding
+# see: https://stackoverflow.com/questions/69063656/
+$PSStyle.OutputRendering = [System.Management.Automation.OutputRendering]::Host;
+
 #define main
 function main {
 
