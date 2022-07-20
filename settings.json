@@ -3,13 +3,14 @@
         "name": "Put job name here, will be the destination folder and job name",
         "files": "get-data.sql,job.ps1,README.md,settings.json,spec.msg",
         "pwsh": true,
-        "schedule": "Schedule Name - see deploy.ps1",
+        "schedule": "Schedule Name - see royashbrook/PSAgentDeploy",
         "server": "Server name to copy to",
-        "teams": "URI of teams channel webhook - see deploy.ps1"
+        "teams": "URI of teams channel webhook - see royashbrook/PSAgentDeploy",
+        "user": "ssh user - see royashbrook/PSAgentDeploy"
     },
     "keepdays": 10,
-    "purgefiles": "*.log,*.xlsx",
-    "file_format": "{0:yyyyMMddHHmmss}-FileToSend.xlsx",
+    "purgefiles": "*.log,*.csv",
+    "file_format": "{0:yyyyMMddHHmmss}-FileToSend.csv",
     "sql": {
         "QueryTimeout": 1800,
         "ConnectionString": "YourConnectionString",
