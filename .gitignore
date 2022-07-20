@@ -1,8 +1,2 @@
-*
-!.gitignore
-!settings.json
-!spec.msg
-!*.md
-!*.ps1
-!*.psm1
-!*.sql
+*.log
+*.csv
