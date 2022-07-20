@@ -1,6 +1,3 @@
-#strict
-Set-StrictMode -Version Latest
-
 #remove ansi color coding
 # see: https://stackoverflow.com/questions/69063656/
 $PSStyle.OutputRendering = [System.Management.Automation.OutputRendering]::Host;
@@ -24,31 +21,30 @@ function main {
     #main logic
     "`n`n"
     l "Start"
+    l "Cleanup"; Clear-Files $cfg
+
     l "Get Data"
-
-    $sqlargs = $cfg.sql.psobject.Properties | % { $h = @{} } { $h."$($_.Name)" = $_.Value } { $h }
-    # if using pwsh, can use below instead
-    #$sqlargs = $cfg.sql | ConvertTo-Json | ConvertFrom-Json -AsHashtable
+    $sqlargs = $cfg.sql | ConvertTo-Json | ConvertFrom-Json -AsHashtable
     $dt = Invoke-Sqlcmd @sqlargs
-    if (($dt | Measure-Object).count -gt 0) {
+    $rc = ($dt | Measure-Object).count
 
-        $dt |
+    #exit if no data
+    if ($rc -eq 0) {
+        l "No data available"
+        return
+    }
+
+    l "Data Found. Formatting File."
+    $dt |
         Select-Object $dt.Columns.ColumnName |
         Export-Csv $file -NoTypeInformation
             
-        l "Use Data"
-        Send-FileViaEmail $file $cfg -useGraph
+    l "Use Data"
+    Send-FileViaEmail $file $cfg -useGraph
 
-    }
-    else {
-        l "No data available"
-    }
-
-    l "Cleanup"    ; Clear-Files $cfg
     l "End"
-    "`n`n"
 
 }
-
+    
 #run main, output to screen and log
 & { main } *>&1 | Tee-Object -Append ("{0:yyyyMMdd}.log" -f (get-date))
