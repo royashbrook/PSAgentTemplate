@@ -2,11 +2,11 @@
 # see: https://stackoverflow.com/questions/69063656/
 $PSStyle.OutputRendering = [System.Management.Automation.OutputRendering]::Host;
 
+#set location to script path
+Set-Location $PSScriptRoot
+
 #define main
 function main {
-
-    #set location to script path
-    Set-Location $PSScriptRoot
 
     #import modules
     Import-Module Add-PrefixForLogging
@@ -40,7 +40,7 @@ function main {
         Export-Csv $file -NoTypeInformation
             
     l "Use Data"
-    Send-FileViaEmail $file $cfg -useGraph
+    Send-FileViaEmail $file $cfg
 
     l "End"
 
